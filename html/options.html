@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>RoBoT-A</title>
+</head>
+
+<body></br></br>
+    <!--<label>
+    <b>I Like Notifications:</b>
+    <input type="checkbox" id="viola">
+</label></br></br>
+<label>
+    <b>onClick Behavior:</b>
+    <i>myCases</i><input type="checkbox" id="myCases">
+    <i>QCases</i><input type="checkbox" id="QCases">
+    <i>Both</i><input type="checkbox" id="bothQs">
+</label></br></br>
+    <b>Milestone Check Interval:</b>
+    <select id="timer">
+        <option value="5" selected>5 Mins</option>
+        <option value="15">15 Mins</option>
+        <option value="30">30 Mins</option>
+        <option value="60">1 hr</option>
+    </select></br></br>
+    <b>IR/OGR Milestone Time:</b>
+    <select id="irogr">
+        <option value="15" selected>15 Mins</option>
+        <option value="30">30 Mins</option>
+        <option value="60">1 hr</option>
+    </select></br></br>
+    <label>
+     <b>Global Queue ID:</b>
+    <input id="qid" value="00G3f000000N38GEAS"></input></label></br></br>-->
+    <table class="unstyledTable">
+        <tbody>
+            <tr>
+                <td><b>I Like Viola</b></td>
+                <td><input type="checkbox" id="viola" checked></td>
+            </tr>
+            <tr>
+                <td><b>I Like Notifications too</b></td>
+                <td><input type="checkbox" id="Notifications" checked></td>
+            </tr>
+            <tr>
+                <td><b>onClick Behavior</b></td>
+                <td>
+                    <select id="clicQ">
+                        <option value="myCases" selected>Open myCases</option>
+                        <option value="QCases">Open QCases</option>
+                        <option value="Both">Open Both</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Milestone Check Interval</b></td>
+                <td>
+                    <select id="timer">
+                        <option value="0.5" selected>forTestOnly</option>
+                        <option value="5" selected>5 Mins</option>
+                        <option value="15">15 Mins</option>
+                        <option value="30">30 Mins</option>
+                        <option value="45">45 Mins</option>
+                        <option value="60">1 hr</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td> <b>IR/OGR Milestone Time</b></td>
+                <td><select id="irogr">
+                        <option value="15" selected>15 Mins</option>
+                        <option value="30">30 Mins</option>
+                        <option value="60">1 hr</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td><b>Global Queue IDs (comma sep)</b></td>
+                <td><input id="qid" value="00G3f000000N38GEAS"></input></td>
+            </tr>
+            <tr>
+                <td><b>Do you Manage a Team?</b></td>
+                <td><input type="checkbox" id="manage"></td>
+            </tr>
+            <tr>
+                <td> <b>WhoAmI?</b></td>
+                <td><select id="whoami">
+                        <option value="PS" selected>Product Specialist</option>
+                        <option value="GCS">Engineer</option>
+                    </select></td>
+            </tr>
+        </tbody>
+    </table>
+    <button id="save">Save</button></br></br>
+    <div id="status"></div>
+    <script src="../js/options.js"></script>
+</body>
+
+</html>

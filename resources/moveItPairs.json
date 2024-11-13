@@ -1,0 +1,40 @@
+{
+	"pairs": [
+		[
+			"Database Ingestion,Streaming Ingestion,DBMI Service,PowerExchange,DBMI,PWX,Oracle CDC,Db2 i connector, Db2 LUW, z/OS,IDMS",
+			"GCS PWX Queue/00G3f000000N38UEAS"
+		],
+		[
+			"CIH Processor,Intelligent Structure Model,AS2,File Integration Service,B2B Processor,File Listener,Failed to process data: m: Failed to read input document,Events.cme,Integration Hub,CIH,B2B Gateway,FMI,CMI,Structure Discovery,B2B,MassIngestion,Advanced SFTP V2",
+			"GCS B2B Queue/00G3f000000N38BEAS"
+		],
+		[
+			"EDC Search Agent,masking",
+			"GCS DSG Queue/00G3f000000N38JEAS"
+		],
+		[
+			"Metadata Foundation Application",
+			"GCS CDGC Queue/00G6S000006V5MGUA0"
+		],
+		[
+			"HMDM Hosted Agents,Password reset,compliance,account locked,forgot password,Email Notifications,Org Disabled,Your organization has been disabled,welcome mail,Org move,move org,moving pod,migrate org",
+			"GCS CRE/00G3f000000N38HEAS"
+		],
+		[
+			"SAP Table Reader,IDOC,com/sap/conn/jco/JCoException,HTTP communication with SAP server,SAP HANA,SAP ADSO, SAP BAPI,Unable to bring up Netty Server",
+			"GCS Adaptors/00G3f000000N389EAC"
+		],
+		[
+			"Databricks,Hive,Hadoop",
+			"GCS BDM/00G3f000000N38DEAS"
+		],
+		[
+			"Profiling,Data Quality,Data Profile,CDQ,AD Verifier",
+			"GCS DQ/00G3f000000N38IEAS"
+		],
+		[
+			"OI Data collector,Operational Insights",
+			"SAT PC/00G3f000000N38cEAC"
+		]
+	]
+}

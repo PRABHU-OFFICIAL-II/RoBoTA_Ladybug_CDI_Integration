@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Okta SSO Popup</title>
+</head>
+<body>
+    <h1>Okta SSO Popup</h1>
+    <button id="openOktaPopup">Open Okta Popup</button>
+
+    <script>
+        document.getElementById('openOktaPopup').addEventListener('click', function() {
+            var oktaWindow = window.open('okta.html', '_blank', 'width=600,height=400');
+            var interval = setInterval(function() {
+                if (oktaWindow.closed) {
+                    clearInterval(interval);
+                    return;
+                }
+
+                try {
+                    // Check if the popup window is still loading
+                    if (oktaWindow.location.href && oktaWindow.location.href !== 'about:blank') {
+                        alert("Popup window loaded successfully! "+oktaWindow.location.href);    
+                        oktaWindow.postMessage('CheckURL', '*');
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            }, 10000); // Check every second
+        });
+
+        // Listener for receiving messages from the popup window
+        window.addEventListener('message', function(event) {
+            if (event.data === 'ClosePopup') {
+                // Close the popup window
+                event.source.close();
+                // Perform any further actions here
+            }
+        });
+    </script>
+</body>
+</html>
+

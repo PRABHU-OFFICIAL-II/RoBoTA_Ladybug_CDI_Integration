@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RoBoT-A</title>
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/popup.js"></script>
+    <script src="../js/puppet.js"></script>
+    <script src="../js/sfdc-helper.js"></script>
+    <script src="../js/jsforce.min.js"></script>
+    <script src="../js/background.js"></script>
+  </head>
+
+  <body>
+    <ul class="nav nav-tabs" id="main-nav">
+      <li class="nav-item active"><a class="nav-link active" href="#home">RoBoT-A</a></li>
+      <li class="nav-item"><a class="nav-link" href="#wassup-div" id="wassup">My Feed</a></li>
+      <li class="nav-item"><a class="nav-link" href="#wassupq-div" id="wassupq">Q Feed</a></li>
+      <li class="nav-item">
+        <a class="nav-link" href="#settings"><span class="glyphicon glyphicon-cog"></span></a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="home">
+        <!-- Content will be appended here. Check js/main.js -->
+      </div>
+      <!-- https://bootsnipp.com/snippets/xrKXW -->
+      <div class="tab-pane" id="wassup-div">
+        <div class="container mt-5 mb-5">
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <h4 class="feed-text text-center">Latest Feed</h4>
+              <ul class="timeline" id="timeline"></ul>
+            </div>
+          </div>
+        </div>
+        <!-- Content will be appended here. Check js/main.js -->
+      </div>
+      <div class="tab-pane" id="wassupq-div">
+        <div class="container mt-5 mb-5">
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <h4 class="feed-text-q text-center">Latest Feed</h4>
+              <ul class="timeline" id="timeline-q"></ul>
+            </div>
+          </div>
+        </div>
+        <!-- Content will be appended here. Check js/main.js -->
+      </div>
+      <!-- The settings pane, expand at will -->
+      <div class="tab-pane" id="settings">
+        <form class="settings">
+          <div class="form-item">
+            <!--<label for="text-field">Coming Soon.. Here you can set interval for Milestone check etc..</label> -->
+          </div>
+          <div class="form-item">
+            <label for="text-field">iCare</label>
+            <input id="iCare" type="text" name="text-field" />
+          </div>
+          <br />
+          <div class="form-item">
+            <label for="text-field">!Care</label>
+            <input id="iCareNot" type="text" name="text-field" />
+          </div>
+          <br />
+          <div id="status"></div>
+          <br />
+          <div class="form-item text-center">
+            <button type="button" class="btn btn-success save-settings">Save</button>
+          </div>
+          <!-- <div class="form-item">
+            <label for="checkbox-field">AutoRefres?</label>
+            <input type="checkbox" name="checkbox-field" />
+          </div>
+          <button type="button" class="btn btn-warning cancel-settings">Cancel</button>
+          <div class="form-item">
+            <label for="select-field">Select</label>
+            <select name="select-field">
+              <option value="item-1">Item 1</option>
+              <option value="item-2">Item 2</option>
+              <option value="item-3">Item 3</option>
+            </select>
+          </div>
+
+          <div class="form-item">
+            <label for="select-field">Radio</label>
+            <input type="radio" name="sex" value="male" />Male<br />
+            <input type="radio" name="sex" value="female" />Female
+          </div>
+
+           -->
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

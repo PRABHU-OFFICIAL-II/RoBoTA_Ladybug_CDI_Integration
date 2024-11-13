@@ -1,0 +1,32 @@
+{
+    "sso": [
+        [
+            "https://informatica.okta.com/home/informatica_iicspodsus_1/0oa1fveza80zqaXRE1d8/aln1fvf2euld8yLd11d8|dm-us",
+            "Pod.US"
+        ],
+        [
+            "https://informatica.okta.com/home/informatica_iicspodemea_1/0oa1fvf1g8aeoHY8a1d8/aln1fvf4yoiZ6yTaY1d8|dm-em",
+            "Pod.EM"
+        ],
+        [
+            "https://informatica.okta.com/home/informatica_iicspodapj_1/0oa1fp97y61v4TIUL1d8/aln1fp9hdfwl08TO51d8|dm-ap",
+            "Pod.AP"
+        ],
+        [
+            "|dm-ford-us",
+            "Pod.FORD"
+        ],
+        [
+            "https://informatica.okta.com/home/informatica_iicsazureus_1/0oa1ikqth54yWkUuG1d8/aln1ikr4u6jaeTwde1d8|dm1-us",
+            "Pod.AZURE"
+        ],
+        [
+            "https://informatica.okta.com/home/informatica_iicsawspreview_1/0oa1ikqikswCoiDLb1d8/aln1ikqtbqwj8dmFU1d8|dmr-us",
+            "POd.SANDBOX"
+        ],
+        [
+            "https://informatica.okta.com/home/informatica_iicsawscanada_1/0oa1ikqhhzz4tdNXw1d8/aln1ikqpmzxhGiEge1d8|dm-na",
+            "Pod.NA"
+        ]
+    ]
+}

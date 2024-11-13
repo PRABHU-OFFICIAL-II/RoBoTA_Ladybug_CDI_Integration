@@ -1,0 +1,36 @@
+{
+	"pairs": [
+		[
+			"Data Integration Server,Process Server,Process Engine,Mass Ingestion",
+			"GCS Cloud Queue/00G3f000000N38GEAS"
+		],
+		[
+			"OI Data Collector",
+			"SAT PC Queue/00G3f000000N38cEAC"
+		],
+		[
+			"Database Ingestion,Streaming Ingestion,DMI Service",
+			"GCS PWX Queue/00G3f000000N38UEAS"
+		],
+		[
+			"CIH Processor,File Integration Service,B2B Processor,Failed to process data: m: Failed to read input document,Events.cme",
+			"GCS B2B Queue/00G3f000000N38BEAS"
+		],
+		[
+			"EDC Search Agent",
+			"GCS DSG Queue/00G3f000000N38JEAS"
+		],
+		[
+			"Metadata Foundation Application",
+			"GCS APS Queue"
+		],
+		[
+			"HMDM Hosted Agents",
+			"GCS CRE/00G3f000000N38HEAS"
+		],
+		[
+			"IDQ",
+			"GCS DQ Queue/00G3f000000N38IEAS"
+		]
+	]
+}

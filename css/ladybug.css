@@ -1,0 +1,78 @@
+.popupbg-menu {
+    -webkit-box-shadow: 10px 10px 20px 8px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 20px 8px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 20px 8px rgba(0,0,0,0.75);
+}
+.popupbg-item {
+    font-size: 0.9em;
+    cursor: pointer;
+    width: 100%;
+}
+.popupbg-item:hover {
+    background: gray;
+}
+.popupbg-item-header {
+    font-size: 0.7em;
+    border-bottom: solid 1px black;
+}
+.timeline-tab-table {
+    border-collapse: collapse;
+}
+
+.timeline-tab-cell {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+    max-width: 20px;
+    max-height: 20px;
+    border: solid 1px rgb(183, 211, 185);
+}
+
+.timeline-tab-row-header {
+    text-align: end;
+    font-size: smaller;
+    vertical-align: bottom;
+    white-space: nowrap;
+    border: solid 1px transparent;
+    padding-top: 1px;
+    padding-right: 5px;
+}
+
+.timeline-tab-col-header {
+    text-align: center;
+    font-size: small;
+    height: 30px;
+}
+.popupbg-infinite-progress-container {
+    overflow: hidden;
+}
+.popupbg-infinite-progress-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 10px solid #f3f3f3;
+    border-top-color: #4caf50;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.mcc-btn {
+    border: solid 2px blue;
+    height: 30px;
+    padding: 0px 5px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    margin: 0px 10px;
+    cursor: pointer;
+}

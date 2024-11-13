@@ -1,0 +1,76 @@
+{
+    "author": "MallikArjun Reddy",
+    "manifest_version": 2,
+    "name": "RoBoT-A",
+    "description": "ROutine BOring Tasks Automated. #OneExtraStep;",
+    "version": "2024.09.03",
+    "icons": {
+        "128": "./resources/robot128.png",
+        "64": "./resources/robot64.png",
+        "32": "./resources/robot32.png"
+    },
+    "browser_action": {
+        "default_icon": "./resources/robot256.png",
+        "default_popup": "./html/popup.html"
+    },
+    "options_ui": {
+        "page": "./html/options.html",
+        "open_in_tab": false
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://infa.lightning.force.com/*",
+                "*://*.informaticacloud.com/*",
+                "https://informatica.okta.com/*",
+                "*://*.informatica.com/force-ui/*",
+                "*://localhost/force-ui/*",
+                "http://resolusense-os.informatica.com/*"
+            ],
+            "js": [
+                "./js/ladybug.js",
+                "./js/content-script.js",
+                "./js/jquery-3.6.0.min.js",
+                "./js/sfdc-helper.js"
+            ],
+            "css": [
+                "css/ladybug.css"
+            ],
+            "all_frames": true,
+            "run_at": "document_idle"
+        }
+    ],
+    "background": {
+        "scripts": [
+            "./js/viola.js",
+            "./js/jsforce.min.js",
+            "./js/puppet.js",
+            "./js/background.js",
+            "./js/sfdc-helper.js",
+            "./js/impersonator.js"
+        ],
+        "persistent": true
+    },
+    "content_security_policy": "default-src 'self'; img-src 'self' https://www.informatica.com; connect-src 'self' http://resolusense-os.informatica.com https://*.dm-us.informaticacloud.com https://*.force.com https://*.salesforce.com https://*.informaticacloud.com https://*.informatica.com/force-ui/*; style-src 'self' 'unsafe-hashes' 'sha256-pR+hP5edGIa/FnLh51QxQWq2fFzIFbssKqBuZhqoPFM='",
+    "permissions": [
+        "https://informatica.my.salesforce.com/*",
+        "https://na2.ai.dm-us.informaticacloud.com/*",
+        "*://*.informaticacloud.com/*",
+        "https://*.force.com/*",
+        "https://*.salesforce.com/*",
+        "https://informatica.okta.com/*",
+        "https://*.informatica.com/force-ui/*",
+        "http://resolusense-os.informatica.com/*",
+        "contextMenus",
+        "activeTab",
+        "tabs",
+        "notifications",
+        "cookies",
+        "storage",
+        "clipboardRead",
+        "clipboardWrite",
+        "idle",
+        "scripting"
+    ],
+    "web_accessible_resources": ["resources/vector-ladybug.png", "css/ladybug.css", "js/ladybug.js"]
+}
