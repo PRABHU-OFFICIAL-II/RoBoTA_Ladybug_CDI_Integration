@@ -611,8 +611,7 @@
             menuItems: [{
               group: "monitor",
               text: "IST Refactor",
-              action: () => updateTimestampToIST(),
-              //     document.addEventListener('DOMContentLoaded', updateTimestampToIST
+              action: () => updateTimestampToIST()
               //   ),
             }, ],
           },
