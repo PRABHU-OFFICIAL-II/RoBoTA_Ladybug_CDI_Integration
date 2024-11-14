@@ -113,7 +113,7 @@
       let bgcolors = {
         info: "green",
         error: "red",
-        warning: "orange"
+        warning: "orange",
       };
       let alert = render("alert", {
         ele: "div",
@@ -347,7 +347,7 @@
     if (typeof data !== "string") {
       hdrs = {
         "Content-Type": "application/json",
-        ...hdrs
+        ...hdrs,
       };
     }
     return ajax("POST", url, JSON.stringify(data), hdrs);
@@ -366,10 +366,11 @@
   function makePopup(def, bgcolor) {
     let elems = {};
     render(
-      "popupbg", {
+      "popupbg",
+      {
         ele: "div",
         attribs: {
-          tabindex: "0"
+          tabindex: "0",
         },
         styles: {
           position: "absolute",
@@ -393,10 +394,12 @@
             }
           },
         },
-        children: [{
-          ...def,
-          iden: "child"
-        }],
+        children: [
+          {
+            ...def,
+            iden: "child",
+          },
+        ],
       },
       (i, e) => (elems[i] = e),
       document.body
@@ -419,7 +422,8 @@
   }
 
   function showFmt(text) {
-    makePopup({
+    makePopup(
+      {
         ele: "div",
         styles: {
           margin: "20px 40px",
@@ -430,9 +434,10 @@
           width: "calc(100% - 80px)",
         },
         evnts: {
-          click: (_) => _.stopPropagation()
+          click: (_) => _.stopPropagation(),
         },
-        children: [{
+        children: [
+          {
             ele: "pre",
             styles: {
               overflow: "auto",
@@ -452,14 +457,15 @@
               top: "5px",
               right: "5px",
             },
-            children: [{
+            children: [
+              {
                 ele: "button",
                 text: "copy",
                 evnts: {
-                  click: (_) => copyToClip(text)
+                  click: (_) => copyToClip(text),
                 },
                 styles: {
-                  marginRight: "5px"
+                  marginRight: "5px",
                 },
               },
               {
@@ -479,7 +485,8 @@
   }
 
   function withProgress(func) {
-    let popup = makePopup({
+    let popup = makePopup(
+      {
         ele: "div",
         classList: "infinite-progress-container",
         styles: {
@@ -492,10 +499,12 @@
           alignItems: "center",
           justifyContent: "center",
         },
-        children: [{
-          ele: "div",
-          classList: "infinite-progress-circle"
-        }],
+        children: [
+          {
+            ele: "div",
+            classList: "infinite-progress-circle",
+          },
+        ],
       },
       "rgba(0,0,0,0.3)"
     );
@@ -529,9 +538,7 @@
     let date = new Date();
     let timezoneOffset = date.getTimezoneOffset();
     // let pstOffset = -480; // this is the offset for the Pacific Standard Time timezone
-    let adjustedTime = new Date(
-      date.getTime() + (timezoneOffset) * 60 * 1000
-    );
+    let adjustedTime = new Date(date.getTime() + timezoneOffset * 60 * 1000);
 
     // display the date and time in PST timezone
     let options = {
@@ -546,29 +553,47 @@
   }
 
   function convertToIST(pstTime) {
-
     const pstDate = new Date(pstTime + " GMT-0800");
 
     // const istOffset = 13.5 * 60 * 60 * 1000;
     // const istDate = new Date(pstDate.getTime() + istOffset);
     const options = {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
       hour12: true,
-      timeZone: 'Asia/Kolkata'
+      timeZone: "Asia/Kolkata",
     };
-    const istDateStr = pstDate.toLocaleString('en-US', options);
+    const istDateStr = pstDate.toLocaleString("en-US", options);
     return istDateStr;
+  }
 
+  function convertToPST(istTime) {
+    const istDate = new Date(istTime + " GMT+0800");
+
+    const options = {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: "America/Los_Angeles",
+    };
+
+    const pstDateStr = istDate.toLocaleString("en-us", options);
+    return pstDateStr;
   }
 
   function updateTimestampToIST() {
     const timestampElement = document.querySelector("div.job-update-timestamp");
-    const timestampPattern = /^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}, \d{4}, \d{1,2}:\d{2} (AM|PM)$/;
-    const timeStampContent = document.querySelectorAll(".infaTableGridCell.ellipses-overflow")
+    const timestampPattern =
+      /^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}, \d{4}, \d{1,2}:\d{2} (AM|PM)$/;
+    const timeStampContent = document.querySelectorAll(
+      ".infaTableGridCell.ellipses-overflow"
+    );
     if (timestampElement && timeStampContent) {
       const pstTextMatch = timestampElement.textContent
         .split(" ")
@@ -601,19 +626,23 @@
       return {
         "na1.*": {
           "/home": {
-            menuItems: [{
-              group: "",
-              text: "Test Check",
-              action: () => showFmt("Lady Bug Triggered"),
-            }, ],
+            menuItems: [
+              {
+                group: "",
+                text: "Test Check",
+                action: () => showFmt("Lady Bug Triggered"),
+              },
+            ],
           },
           "/MonitorJobs": {
-            menuItems: [{
-              group: "monitor",
-              text: "IST Refactor",
-              action: () => updateTimestampToIST()
-              //   ),
-            }, ],
+            menuItems: [
+              {
+                group: "monitor",
+                text: "IST Refactor",
+                action: () => updateTimestampToIST(),
+                //   ),
+              },
+            ],
           },
         },
       };
@@ -642,13 +671,14 @@
             ],
           },
           "/jobInfo/.*": {
-            menuItems: [{
+            menuItems: [
+              {
                 group: "Job info",
                 text: "Show job definition",
                 action: showActionForCdgcUrl(
                   get,
                   (_) =>
-                  `/ccgf-orchestration-management-api-server/api/v1/jobs/${window.location.pathname.substring(
+                    `/ccgf-orchestration-management-api-server/api/v1/jobs/${window.location.pathname.substring(
                       9
                     )}?aggregateResourceUsage=false&expandChildren=INPUT-PROPERTIES&expandChildren=OUTPUT-PROPERTIES&expandChildren=TASK-HIERARCHY&expandChildren=WORKFLOW-DETAILS&expandChildren=OPERATIONS`
                 ),
@@ -659,7 +689,7 @@
                 action: showActionForCdgcUrl(
                   get,
                   (_) =>
-                  `/ccgf-orchestration-management-api-server/api/v1/jobs/${window.location.pathname.substring(
+                    `/ccgf-orchestration-management-api-server/api/v1/jobs/${window.location.pathname.substring(
                       9
                     )}/jobspec`
                 ),
@@ -679,16 +709,18 @@
                     cdgcApi(
                       get,
                       `/ccgf-metadata-staging/api/v1/staging/files?path=${this.jobid}&serviceFunction=${sf}`,
-                      undefined, {},
+                      undefined,
+                      {},
                       false
                     )
                   );
                   Promise.all(proms).then((fsets) => {
                     this.panel.innerHTML = "";
                     render(
-                      "aug-ui", {
+                      "aug-ui",
+                      {
                         ele: "h2",
-                        text: "Additional info"
+                        text: "Additional info",
                       },
                       undefined,
                       this.panel
@@ -696,24 +728,26 @@
                     fsets.forEach((files, i) => {
                       if (!files.fullyQualifiedPath.length) return;
                       render(
-                        "aug-ui", {
+                        "aug-ui",
+                        {
                           ele: "div",
-                          children: [{
+                          children: [
+                            {
                               ele: "h3",
-                              text: `Files in ${sfs[i]}`
+                              text: `Files in ${sfs[i]}`,
                             },
                             {
                               ele: "div",
                               children: files.fullyQualifiedPath.map((p) => ({
                                 ele: "a",
                                 styles: {
-                                  display: "block"
+                                  display: "block",
                                 },
                                 text: p,
                                 evnts: {
                                   click: getDownloadActionForCdgcUrl(
                                     (_) =>
-                                    `/ccgf-metadata-staging/api/v1/staging/files/download?filePath=${encodeURIComponent(
+                                      `/ccgf-metadata-staging/api/v1/staging/files/download?filePath=${encodeURIComponent(
                                         p
                                       )}&serviceFunction=metadata_staging`,
                                     p.split("/").pop()
@@ -804,7 +838,8 @@
             ],
           },
           "/catalogsource/.*": {
-            menuItems: [{
+            menuItems: [
+              {
                 group: "Lake",
                 text: "Export all V & E from origin",
                 action: () =>
@@ -871,7 +906,8 @@
             ],
           },
           ".*": {
-            menuItems: [{
+            menuItems: [
+              {
                 group: "",
                 text: "Copy JWT token",
                 action: copyActionFor(getToken),
@@ -909,7 +945,8 @@
         },
         "cdgc.*": {
           "/asset/.*": {
-            menuItems: [{
+            menuItems: [
+              {
                 group: "ES",
                 text: "Show asset doc from ES",
                 action: showActionForCdgcUrl(
@@ -920,10 +957,11 @@
                     size: 9,
                     query: {
                       bool: {
-                        must: [{
+                        must: [
+                          {
                             terms: {
-                              elementType: ["OBJECT"]
-                            }
+                              elementType: ["OBJECT"],
+                            },
                           },
                           {
                             terms: {
@@ -935,8 +973,9 @@
                         ],
                       },
                     },
-                  }), {
-                    "x-infa-search-language": "elasticsearch"
+                  }),
+                  {
+                    "x-infa-search-language": "elasticsearch",
                   }
                 ),
               },
@@ -951,10 +990,11 @@
                     size: 10000,
                     query: {
                       bool: {
-                        must: [{
+                        must: [
+                          {
                             terms: {
-                              elementType: ["RELATIONSHIP"]
-                            }
+                              elementType: ["RELATIONSHIP"],
+                            },
                           },
                           {
                             terms: {
@@ -966,8 +1006,9 @@
                         ],
                       },
                     },
-                  }), {
-                    "x-infa-search-language": "elasticsearch"
+                  }),
+                  {
+                    "x-infa-search-language": "elasticsearch",
                   }
                 ),
               },
@@ -982,10 +1023,11 @@
                     size: 10000,
                     query: {
                       bool: {
-                        must: [{
+                        must: [
+                          {
                             terms: {
-                              elementType: ["RELATIONSHIP"]
-                            }
+                              elementType: ["RELATIONSHIP"],
+                            },
                           },
                           {
                             terms: {
@@ -997,8 +1039,9 @@
                         ],
                       },
                     },
-                  }), {
-                    "x-infa-search-language": "elasticsearch"
+                  }),
+                  {
+                    "x-infa-search-language": "elasticsearch",
                   }
                 ),
               },
@@ -1025,8 +1068,9 @@
                         ["valueMap", true],
                       ],
                     },
-                  }), {
-                    "x-infa-search-language": "gremlin"
+                  }),
+                  {
+                    "x-infa-search-language": "gremlin",
                   }
                 ),
               },
@@ -1053,8 +1097,9 @@
                         ["valueMap", true],
                       ],
                     },
-                  }), {
-                    "x-infa-search-language": "gremlin"
+                  }),
+                  {
+                    "x-infa-search-language": "gremlin",
                   }
                 ),
               },
@@ -1081,8 +1126,9 @@
                         ["valueMap", true],
                       ],
                     },
-                  }), {
-                    "x-infa-search-language": "gremlin"
+                  }),
+                  {
+                    "x-infa-search-language": "gremlin",
                   }
                 ),
               },
@@ -1099,10 +1145,11 @@
                     include_cdc: true,
                     query: {
                       bool: {
-                        must: [{
+                        must: [
+                          {
                             terms: {
-                              elementType: ["OBJECT"]
-                            }
+                              elementType: ["OBJECT"],
+                            },
                           },
                           {
                             terms: {
@@ -1114,8 +1161,9 @@
                         ],
                       },
                     },
-                  }), {
-                    "x-infa-search-language": "elasticsearch"
+                  }),
+                  {
+                    "x-infa-search-language": "elasticsearch",
                   }
                 ),
               },
@@ -1125,37 +1173,37 @@
                 text: "Export all V & E from origin",
                 action: () =>
                   cdgc_searchAsset([window.location.pathname.substring(7)])
-                  .then((hits) => hits[0]["sourceAsMap"]["core.origin"])
-                  .then((origin) => cdgc_triggerExport(origin, true, true)),
+                    .then((hits) => hits[0]["sourceAsMap"]["core.origin"])
+                    .then((origin) => cdgc_triggerExport(origin, true, true)),
               },
               {
                 group: "Lake",
                 text: "Export all V from origin",
                 action: () =>
                   cdgc_searchAsset([window.location.pathname.substring(7)])
-                  .then((hits) => hits[0]["sourceAsMap"]["core.origin"])
-                  .then((origin) => cdgc_triggerExport(origin, true)),
+                    .then((hits) => hits[0]["sourceAsMap"]["core.origin"])
+                    .then((origin) => cdgc_triggerExport(origin, true)),
               },
               {
                 group: "Lake",
                 text: "Export all E from origin",
                 action: () =>
                   cdgc_searchAsset([window.location.pathname.substring(7)])
-                  .then((hits) => hits[0]["sourceAsMap"]["core.origin"])
-                  .then((origin) => cdgc_triggerExport(origin, false, true)),
+                    .then((hits) => hits[0]["sourceAsMap"]["core.origin"])
+                    .then((origin) => cdgc_triggerExport(origin, false, true)),
               },
               {
                 group: "Lake",
                 text: "Export all asset of this type from origin",
                 action: () =>
                   cdgc_searchAsset([window.location.pathname.substring(7)])
-                  .then((hits) => [
-                    hits[0]["sourceAsMap"]["core.origin"],
-                    hits[0]["sourceAsMap"]["core.classType"],
-                  ])
-                  .then((oAc) =>
-                    cdgc_triggerExport(oAc[0], true, false, [oAc[1]])
-                  ),
+                    .then((hits) => [
+                      hits[0]["sourceAsMap"]["core.origin"],
+                      hits[0]["sourceAsMap"]["core.classType"],
+                    ])
+                    .then((oAc) =>
+                      cdgc_triggerExport(oAc[0], true, false, [oAc[1]])
+                    ),
               },
               {
                 group: "Lake",
@@ -1171,7 +1219,8 @@
             ],
           },
           ".*": {
-            menuItems: [{
+            menuItems: [
+              {
                 group: "",
                 text: "Copy JWT token",
                 action: copyActionFor(getToken),
@@ -1215,11 +1264,11 @@
           const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
           const jsonPayload = decodeURIComponent(
             atob(base64)
-            .split("")
-            .map(function (c) {
-              return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-            })
-            .join("")
+              .split("")
+              .map(function (c) {
+                return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+              })
+              .join("")
           );
 
           return JSON.parse(jsonPayload);
@@ -1271,31 +1320,31 @@
         );
       return this.services.then(
         (s) =>
-        s.serviceDetails.filter((s) => s.serviceName == serviceName)[0]
-        .serviceVersion.externalServiceUrl
+          s.serviceDetails.filter((s) => s.serviceName == serviceName)[0]
+            .serviceVersion.externalServiceUrl
       );
     }
 
     function cdgcApi(method, api, payload, headers = {}, progress) {
-      return progress || progress == undefined ?
-        withProgress((_) =>
-          getCdgcServiceUrl(api.split("/")[1]).then((url) =>
+      return progress || progress == undefined
+        ? withProgress((_) =>
+            getCdgcServiceUrl(api.split("/")[1]).then((url) =>
+              _cdgcApi(
+                method,
+                `${url}${api.substring(1 + api.substr(1).indexOf("/"))}`,
+                payload,
+                headers
+              )
+            )
+          )
+        : getCdgcServiceUrl(api.split("/")[1]).then((url) =>
             _cdgcApi(
               method,
               `${url}${api.substring(1 + api.substr(1).indexOf("/"))}`,
               payload,
               headers
             )
-          )
-        ) :
-        getCdgcServiceUrl(api.split("/")[1]).then((url) =>
-          _cdgcApi(
-            method,
-            `${url}${api.substring(1 + api.substr(1).indexOf("/"))}`,
-            payload,
-            headers
-          )
-        );
+          );
     }
 
     function copyActionForCdgcUrl(func, urlGetter, payloadGetter, hdrs) {
@@ -1335,26 +1384,29 @@
     function cdgc_searchAsset(ids) {
       return cdgcApi(
         post,
-        `/ccgf-searchv2/api/v1/search`, {
+        `/ccgf-searchv2/api/v1/search`,
+        {
           from: 0,
           size: 9,
           query: {
             bool: {
-              must: [{
+              must: [
+                {
                   terms: {
-                    elementType: ["OBJECT"]
-                  }
+                    elementType: ["OBJECT"],
+                  },
                 },
                 {
                   terms: {
-                    "core.identity": ids
-                  }
+                    "core.identity": ids,
+                  },
                 },
               ],
             },
           },
-        }, {
-          "x-infa-search-language": "elasticsearch"
+        },
+        {
+          "x-infa-search-language": "elasticsearch",
         },
         false
       ).then((x) => x["hits"]["hits"]);
@@ -1371,7 +1423,7 @@
           bool: {
             must: Object.entries(query).map(([k, v]) => ({
               terms: {
-                [k]: v
+                [k]: v,
               },
             })),
           },
@@ -1382,18 +1434,20 @@
             [item]: {
               terms: {
                 field: item,
-                size: 10000
-              }
+                size: 10000,
+              },
             },
-          }), {}
+          }),
+          {}
         ),
       };
       // return as {facetfield: {k1: v1, k2: v2}}
       return cdgcApi(
         post,
         `/ccgf-searchv2/api/v1/search`,
-        q, {
-          "x-infa-search-language": "elasticsearch"
+        q,
+        {
+          "x-infa-search-language": "elasticsearch",
         },
         false
       ).then((x) =>
@@ -1403,10 +1457,12 @@
             [k]: v.buckets.reduce(
               (o, i) => ({
                 ...o,
-                [i.key]: i.docCount
-              }), {}
+                [i.key]: i.docCount,
+              }),
+              {}
             ),
-          }), {}
+          }),
+          {}
         )
       );
     }
@@ -1420,24 +1476,24 @@
     ) {
       let plod = {
         exportSpecs: [],
-        exportLevel: "TABLE"
+        exportLevel: "TABLE",
       };
       if (exportObj)
         plod["exportSpecs"].push({
           namespace: "objects",
           origins: [origin],
-          tableSpecs: oFilters.map(( of ) => ({
-            name: of ,
-            filters: []
+          tableSpecs: oFilters.map((of) => ({
+            name: of,
+            filters: [],
           })),
         });
       if (exportRels)
         plod["exportSpecs"].push({
           namespace: "relationships",
           origins: [origin],
-          tableSpecs: eFilters.map(( of ) => ({
-            name: of ,
-            filters: []
+          tableSpecs: eFilters.map((of) => ({
+            name: of,
+            filters: [],
           })),
         });
       console.log(plod);
@@ -1456,8 +1512,8 @@
 
     function showCdgcCapabilities() {
       let rows = document
-        .querySelector(".asset-list-panel-job-monitor-jobs")
-        .querySelectorAll("tr.d-table__body__row"),
+          .querySelector(".asset-list-panel-job-monitor-jobs")
+          .querySelectorAll("tr.d-table__body__row"),
         ids = {};
       for (let i = 0; i < rows.length; i++)
         ids[rows[i].getAttribute("data-id")] = rows[i];
@@ -1466,7 +1522,8 @@
           cdgcApi(
             get,
             `/ccgf-orchestration-management-api-server/api/v1/jobs/${i}?expandChildren=TASK-HIERARCHY`,
-            undefined, {},
+            undefined,
+            {},
             false
           )
         )
@@ -1521,7 +1578,8 @@
           "targetServiceVersion",
           "routedServiceVersion",
         ];
-        makePopup({
+        makePopup(
+          {
             ele: "div",
             styles: {
               margin: "20px 40px",
@@ -1532,11 +1590,13 @@
               position: "relative",
             },
             evnts: {
-              click: (_) => _.stopPropagation()
+              click: (_) => _.stopPropagation(),
             },
-            children: [{
+            children: [
+              {
                 ele: "table",
-                children: [{
+                children: [
+                  {
                     ele: "tr",
                     children: [...keys, "Action"].map((k) => ({
                       ele: "th",
@@ -1548,7 +1608,7 @@
                     children: [
                       ...keys.map((k) => ({
                         ele: "td",
-                        text: row[k]
+                        text: row[k],
                       })),
                       {
                         ele: "button",
@@ -1573,14 +1633,15 @@
                   top: "5px",
                   right: "5px",
                 },
-                children: [{
+                children: [
+                  {
                     ele: "button",
                     text: "copy",
                     evnts: {
-                      click: (_) => copyToClip(text)
+                      click: (_) => copyToClip(text),
                     },
                     styles: {
-                      marginRight: "5px"
+                      marginRight: "5px",
                     },
                   },
                   {
@@ -1607,7 +1668,8 @@
       ).then((x) => {
         console.log(x);
         let keys = ["keyName", "isRequired", "defaultValue", "value"];
-        makePopup({
+        makePopup(
+          {
             ele: "div",
             styles: {
               margin: "20px 40px",
@@ -1618,30 +1680,32 @@
               position: "relative",
             },
             evnts: {
-              click: (_) => _.stopPropagation()
+              click: (_) => _.stopPropagation(),
             },
-            children: [{
+            children: [
+              {
                 ele: "h3",
-                text: `${sName}: ${sVersion}`
+                text: `${sName}: ${sVersion}`,
               },
               {
                 ele: "table",
-                children: [{
+                children: [
+                  {
                     ele: "tr",
                     children: keys.map((k) => ({
                       ele: "th",
-                      text: k
+                      text: k,
                     })),
                   },
                   ...x["serviceSettings"]
-                  .sort((a, b) => a.keyName.localeCompare(b.keyName))
-                  .map((row) => ({
-                    ele: "tr",
-                    children: keys.map((k) => ({
-                      ele: "td",
-                      text: row[k]
+                    .sort((a, b) => a.keyName.localeCompare(b.keyName))
+                    .map((row) => ({
+                      ele: "tr",
+                      children: keys.map((k) => ({
+                        ele: "td",
+                        text: row[k],
+                      })),
                     })),
-                  })),
                 ],
               },
               {
@@ -1652,14 +1716,15 @@
                   top: "5px",
                   right: "5px",
                 },
-                children: [{
+                children: [
+                  {
                     ele: "button",
                     text: "copy",
                     evnts: {
-                      click: (_) => copyToClip(text)
+                      click: (_) => copyToClip(text),
                     },
                     styles: {
-                      marginRight: "5px"
+                      marginRight: "5px",
                     },
                   },
                   {
@@ -1698,7 +1763,7 @@
                 return value
                   .map(
                     (val) =>
-                    `${encodeURIComponent(key)}=${encodeURIComponent(val)}`
+                      `${encodeURIComponent(key)}=${encodeURIComponent(val)}`
                   )
                   .join("&");
               }
@@ -1799,7 +1864,8 @@
       }
 
       function TimelineView(
-        ele, {
+        ele,
+        {
           grpByFunc,
           startKeyFunc,
           endKeyFunc,
@@ -1868,31 +1934,35 @@
 
         let elems = {};
         render(
-          "timeline-tab", {
+          "timeline-tab",
+          {
             ele: "div",
             styles: {
               display: "flex",
-              width: width
+              width: width,
             },
-            children: [{
+            children: [
+              {
                 ele: "div",
                 iden: "rowheaders",
                 styles: {
                   display: "flex",
-                  flexDirection: "column"
+                  flexDirection: "column",
                 },
               },
               {
                 ele: "div",
                 styles: {
                   flexGrow: 1,
-                  overflowX: "auto"
+                  overflowX: "auto",
                 },
-                children: [{
-                  ele: "table",
-                  classList: "table",
-                  iden: "datatable"
-                }, ],
+                children: [
+                  {
+                    ele: "table",
+                    classList: "table",
+                    iden: "datatable",
+                  },
+                ],
               },
             ],
           },
@@ -1901,14 +1971,15 @@
         );
 
         render(
-          "timeline-tab", {
+          "timeline-tab",
+          {
             ele: "tr",
             children: timeslots.map((slot) => ({
               ele: "th",
               classList: "col-header",
               text: `${interval == "day" ? slot.getDate() : slot.getHours()}`,
               attribs: {
-                title: `${slot.toString()}`
+                title: `${slot.toString()}`,
               },
             })),
           },
@@ -1917,20 +1988,25 @@
         );
 
         render(
-          "timeline-tab", {
+          "timeline-tab",
+          {
             ele: "div",
             children: ["", ...keys].map((key, i) => ({
               ele: "div",
-              styles: i ? {
-                height: "20px"
-              } : {
-                border: "solid 1px transparent"
-              },
+              styles: i
+                ? {
+                    height: "20px",
+                  }
+                : {
+                    border: "solid 1px transparent",
+                  },
               classList: i ? "row-header" : "col-header",
-              children: [{
-                ele: "div",
-                text: key.toLowerCase()
-              }],
+              children: [
+                {
+                  ele: "div",
+                  text: key.toLowerCase(),
+                },
+              ],
             })),
           },
           undefined,
@@ -1939,7 +2015,8 @@
 
         for (key of keys) {
           render(
-            "timeline-tab", {
+            "timeline-tab",
+            {
               ele: "tr",
               children: timeslots.map((slot) => {
                 let vals = twoDArray[key][slot.toString()] || [];
@@ -1949,14 +2026,15 @@
                   classList: "cell",
                   // text: `${val}`,
                   evnts: {
-                    click: (_) => clickFunc && clickFunc(vals)
+                    click: (_) => clickFunc && clickFunc(vals),
                   },
                   attribs: {
                     title: `On: ${slot.toString()}\nNumber of ${key} jobs: ${val}`,
                   },
                   styles: {
-                    backgroundColor: val ?
-                      interpolateColor(0, maxJobs, val) : "white",
+                    backgroundColor: val
+                      ? interpolateColor(0, maxJobs, val)
+                      : "white",
                   },
                 };
               }),
@@ -1973,7 +2051,8 @@
       }
 
       function renderControls(
-        ele, {
+        ele,
+        {
           updateCallBack,
           intervalTypes,
           jobStates,
@@ -1988,8 +2067,14 @@
         function update() {
           let state = {
             jobClass: elems.jobClass.value,
-            nameFilter: elems.nameFilter.value.trim() != "" ? [elems.nameFilter.value.trim()] : [],
-            typeFilter: elems.typeFilter.value.trim() != "" ? [elems.typeFilter.value.trim()] : [],
+            nameFilter:
+              elems.nameFilter.value.trim() != ""
+                ? [elems.nameFilter.value.trim()]
+                : [],
+            typeFilter:
+              elems.typeFilter.value.trim() != ""
+                ? [elems.typeFilter.value.trim()]
+                : [],
             stateFilter: elems.stateFilter.value,
             startTime: elems.startTime.value,
             endTime: elems.endTime.value,
@@ -2000,12 +2085,14 @@
         }
 
         render(
-          "controls", {
+          "controls",
+          {
             ele: "div",
             styles: {
-              display: "flex"
+              display: "flex",
             },
-            children: [{
+            children: [
+              {
                 ele: "div",
                 styles: {
                   display: "flex",
@@ -2013,14 +2100,16 @@
                   width: "100%",
                   paddingRight: "15px",
                 },
-                children: [{
+                children: [
+                  {
                     ele: "div",
                     styles: {
                       display: "flex",
                       flexGrow: 1,
-                      margin: "5px 0px"
+                      margin: "5px 0px",
                     },
-                    children: [{
+                    children: [
+                      {
                         ele: "select",
                         iden: "jobClass",
                         children: jobTypeFilters.map((i) => ({
@@ -2030,32 +2119,32 @@
                       },
                       {
                         ele: "span",
-                        text: '&nbsp; jobs with "'
+                        text: '&nbsp; jobs with "',
                       },
                       {
                         ele: "input",
                         iden: "nameFilter",
                         attribs: {
-                          placeholder: "*"
+                          placeholder: "*",
                         },
                         styles: {
                           flexGrow: 1,
-                          width: "5px"
+                          width: "5px",
                         },
                       },
                       {
                         ele: "span",
-                        text: '" in their <b>name</b> and "'
+                        text: '" in their <b>name</b> and "',
                       },
                       {
                         ele: "input",
                         iden: "typeFilter",
                         attribs: {
-                          placeholder: "*"
+                          placeholder: "*",
                         },
                         styles: {
                           flexGrow: 1,
-                          width: "5px"
+                          width: "5px",
                         },
                       },
                       {
@@ -2067,19 +2156,19 @@
                         iden: "stateFilter",
                         styles: {
                           flexGrow: 1,
-                          width: "15px"
+                          width: "15px",
                         },
                         children: jobStates.map((i, idx) => ({
                           ele: "option",
                           text: i,
                           attribs: {
-                            selected: idx == 0
+                            selected: idx == 0,
                           },
                         })),
                       },
                       {
                         ele: "span",
-                        text: "&nbsp;status"
+                        text: "&nbsp;status",
                       },
                     ],
                   },
@@ -2088,43 +2177,44 @@
                     styles: {
                       display: "flex",
                       flexGrow: 1,
-                      margin: "5px 0px"
+                      margin: "5px 0px",
                     },
-                    children: [{
+                    children: [
+                      {
                         ele: "span",
-                        text: "created between:&nbsp;"
+                        text: "created between:&nbsp;",
                       },
                       {
                         ele: "input",
                         iden: "startTime",
                         attribs: {
                           type: "date",
-                          value: startTime
+                          value: startTime,
                         },
                         styles: {
                           flexGrow: 1,
-                          width: "5px"
+                          width: "5px",
                         },
                       },
                       {
                         ele: "span",
-                        text: "&nbsp;and &nbsp;"
+                        text: "&nbsp;and &nbsp;",
                       },
                       {
                         ele: "input",
                         iden: "endTime",
                         attribs: {
                           type: "date",
-                          value: endTime
+                          value: endTime,
                         },
                         styles: {
                           flexGrow: 1,
-                          width: "5px"
+                          width: "5px",
                         },
                       },
                       {
                         ele: "span",
-                        text: "&nbsp; grouped by &nbsp;"
+                        text: "&nbsp; grouped by &nbsp;",
                       },
                       {
                         ele: "select",
@@ -2136,7 +2226,7 @@
                       },
                       {
                         ele: "span",
-                        text: "&nbsp; shown in &nbsp;"
+                        text: "&nbsp; shown in &nbsp;",
                       },
                       {
                         ele: "select",
@@ -2148,7 +2238,7 @@
                       },
                       {
                         ele: "span",
-                        text: "wise format"
+                        text: "wise format",
                       },
                     ],
                   },
@@ -2156,17 +2246,19 @@
               },
               {
                 ele: "div",
-                children: [{
-                  ele: "button",
-                  iden: "updateBtn",
-                  text: "Update",
-                  styles: {
-                    height: "100%"
+                children: [
+                  {
+                    ele: "button",
+                    iden: "updateBtn",
+                    text: "Update",
+                    styles: {
+                      height: "100%",
+                    },
+                    evnts: {
+                      click: () => update(),
+                    },
                   },
-                  evnts: {
-                    click: () => update()
-                  },
-                }, ],
+                ],
               },
             ],
           },
@@ -2187,7 +2279,7 @@
 
         function showStuff(stuffName, jobId) {
           (stuffName == "spec" ? getJobSpec : getJobDetail)(jobId)
-          .then((data) => {
+            .then((data) => {
               detailsPane.innerText = JSON.stringify(data, undefined, 4);
             })
             .catch((e) => {
@@ -2197,7 +2289,8 @@
               popupRef.parentElement.click();
             });
         }
-        let popupRef = makePopup({
+        let popupRef = makePopup(
+          {
             ele: "div",
             styles: {
               display: "flex",
@@ -2211,74 +2304,78 @@
               bottom: "0px",
               right: "0px",
             },
-            children: [{
-              ele: "div",
-              styles: {
-                background: "white",
-                maxHeight: "500px",
-                minWidth: "600px",
-                overflow: "auto",
-              },
-              children: jobs.map((j) => ({
+            children: [
+              {
                 ele: "div",
                 styles: {
-                  display: "flex",
-                  flexDirection: "column",
-                  border: "solid 1px gray",
-                  margin: "10px",
-                  padding: "5px",
-                  position: "relative",
+                  background: "white",
+                  maxHeight: "500px",
+                  minWidth: "600px",
+                  overflow: "auto",
                 },
-                children: [
-                  ...Object.entries(props).map(([l, k]) => ({
-                    ele: "div",
-                    styles: {
-                      margin: "3px"
-                    },
-                    children: [{
-                        ele: "b",
-                        text: `${l}: `
-                      },
-                      {
-                        ele: "span",
-                        styles: {
-                          flexGrow: 1
-                        },
-                        text: j[k]
-                      },
-                    ],
-                  })),
-                  {
-                    ele: "div",
-                    styles: {
-                      position: "absolute",
-                      right: "20px",
-                      bottom: "20px",
-                      display: "flex",
-                      flexDirection: "column",
-                    },
-                    children: [{
-                        ele: "button",
-                        text: "See job & task details",
-                        evnts: {
-                          click: (_) => showStuff("detail", j.id)
-                        },
-                      },
-                      {
-                        ele: "button",
-                        text: "See job spec",
-                        evnts: {
-                          click: (_) => showStuff("spec", j.id)
-                        },
-                      },
-                    ],
+                children: jobs.map((j) => ({
+                  ele: "div",
+                  styles: {
+                    display: "flex",
+                    flexDirection: "column",
+                    border: "solid 1px gray",
+                    margin: "10px",
+                    padding: "5px",
+                    position: "relative",
                   },
-                ],
-              })),
-              evnts: {
-                click: (e) => e.stopPropagation()
+                  children: [
+                    ...Object.entries(props).map(([l, k]) => ({
+                      ele: "div",
+                      styles: {
+                        margin: "3px",
+                      },
+                      children: [
+                        {
+                          ele: "b",
+                          text: `${l}: `,
+                        },
+                        {
+                          ele: "span",
+                          styles: {
+                            flexGrow: 1,
+                          },
+                          text: j[k],
+                        },
+                      ],
+                    })),
+                    {
+                      ele: "div",
+                      styles: {
+                        position: "absolute",
+                        right: "20px",
+                        bottom: "20px",
+                        display: "flex",
+                        flexDirection: "column",
+                      },
+                      children: [
+                        {
+                          ele: "button",
+                          text: "See job & task details",
+                          evnts: {
+                            click: (_) => showStuff("detail", j.id),
+                          },
+                        },
+                        {
+                          ele: "button",
+                          text: "See job spec",
+                          evnts: {
+                            click: (_) => showStuff("spec", j.id),
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                })),
+                evnts: {
+                  click: (e) => e.stopPropagation(),
+                },
               },
-            }, ],
+            ],
           },
           "rgba(0,0,0,0.3)"
         );
@@ -2364,7 +2461,8 @@
         // render the containers for controls and view
         let elems = {};
         render(
-          "app", {
+          "app",
+          {
             ele: "div",
             styles: {
               display: "flex",
@@ -2372,9 +2470,10 @@
               height: "100%",
               width: "100%",
             },
-            children: [{
+            children: [
+              {
                 ele: "div",
-                iden: "controls"
+                iden: "controls",
               },
               {
                 ele: "div",
@@ -2384,17 +2483,19 @@
                   minHeight: "20%",
                   overflowY: "auto",
                 },
-                children: [{
-                  ele: "div",
-                  styles: {
-                    textAlign: "center",
-                    alignContent: "center",
-                    height: "calc(100% - 40px)",
-                    background: "aliceblue",
-                    margin: "20px 0px",
+                children: [
+                  {
+                    ele: "div",
+                    styles: {
+                      textAlign: "center",
+                      alignContent: "center",
+                      height: "calc(100% - 40px)",
+                      background: "aliceblue",
+                      margin: "20px 0px",
+                    },
+                    text: "Loading...",
                   },
-                  text: "Loading...",
-                }, ],
+                ],
               },
               {
                 ele: "b",
@@ -2412,13 +2513,15 @@
                   border: "solid 1px lightgray",
                   flexGrow: 1,
                 },
-                children: [{
-                  ele: "pre",
-                  iden: "detail",
-                  styles: {
-                    height: "100%"
-                  }
-                }, ],
+                children: [
+                  {
+                    ele: "pre",
+                    iden: "detail",
+                    styles: {
+                      height: "100%",
+                    },
+                  },
+                ],
               },
             ],
           },
@@ -2426,8 +2529,8 @@
           elem
         );
         (view = elems.view),
-        (controls = elems.controls),
-        (detailsPane = elems.detail);
+          (controls = elems.controls),
+          (detailsPane = elems.detail);
 
         renderControls(controls, controlOptions);
         // lets' not load the view ourselves and duplicate the code. Let is get loaded by the programmatic click
@@ -2439,7 +2542,8 @@
     function cdgc_mcc_showTimeLineView() {
       let margin = "50px";
       TimelineMonitorView(
-        makePopup({
+        makePopup(
+          {
             ele: "div",
             styles: {
               background: "white",
@@ -2451,7 +2555,7 @@
               padding: "10px",
             },
             evnts: {
-              click: (e) => e.stopPropagation()
+              click: (e) => e.stopPropagation(),
             },
           },
           "rgba(0,0,0,0.3)"
@@ -2467,40 +2571,43 @@
       let isOriginId = window.location.hostname.includes("mcc.");
       dataSourceCountUnder10k = "";
 
-      let oprom = isOriginId ?
-        Promise.resolve(id) :
-        cdgc_searchAsset([id]).then(
-          (hits) => hits[0]["sourceAsMap"]["core.origin"]
-        );
+      let oprom = isOriginId
+        ? Promise.resolve(id)
+        : cdgc_searchAsset([id]).then(
+            (hits) => hits[0]["sourceAsMap"]["core.origin"]
+          );
       oprom.then((originid) => {
         cdgcApi(
           post,
-          `/ccgf-searchv2/api/v1/search`, {
+          `/ccgf-searchv2/api/v1/search`,
+          {
             from: 0,
             size: 10000,
             sort: [],
             query: {
               bool: {
-                must: [{
+                must: [
+                  {
                     terms: {
-                      "core.origin": [originid]
-                    }
+                      "core.origin": [originid],
+                    },
                   },
                   {
                     terms: {
-                      type: ["core.DataSource"]
-                    }
+                      type: ["core.DataSource"],
+                    },
                   },
                   {
                     terms: {
-                      elementType: ["OBJECT"]
-                    }
+                      elementType: ["OBJECT"],
+                    },
                   },
                 ],
               },
             },
-          }, {
-            "x-infa-search-language": "elasticsearch"
+          },
+          {
+            "x-infa-search-language": "elasticsearch",
           },
           false
         ).then((x) => {
@@ -2512,16 +2619,17 @@
               x.hits.total["relation"] == "gte"
             )
               dataSourceCountUnder10k =
-              "[ DataSource count exceeds 10K, Analysis is limited to first 10k dataSources... ]";
+                "[ DataSource count exceeds 10K, Analysis is limited to first 10k dataSources... ]";
             else
               dataSourceCountUnder10k =
-              "[ Analysed all " + x.hits.totalHits + " dataSources... ]";
+                "[ Analysed all " + x.hits.totalHits + " dataSources... ]";
             x.hits.hits.forEach((hit) => {
               if (hit.sourceAsMap && hit.sourceAsMap["core.mergeFacts"]) {
                 if (hit.sourceAsMap["core.mergeFacts"].length > 0) {
                   output.push({
                     "core.name": hit.sourceAsMap["core.name"],
-                    "core.identity": "<a href='" +
+                    "core.identity":
+                      "<a href='" +
                       dgc_url +
                       "/asset/" +
                       hit.sourceAsMap["core.identity"] +
@@ -2534,7 +2642,8 @@
                       (row) => {
                         return {
                           ...row,
-                          "core.endpointIdentity": "<a href='" +
+                          "core.endpointIdentity":
+                            "<a href='" +
                             dgc_url +
                             "/asset/" +
                             row["core.endpointIdentity"] +
@@ -2551,20 +2660,20 @@
             if (output.length > 0)
               showFmt(
                 "Origin " +
-                originid +
-                " is involved in Connection Assignment...\n" +
-                dataSourceCountUnder10k +
-                "\n\n" +
-                JSON.stringify(output, undefined, 4)
+                  originid +
+                  " is involved in Connection Assignment...\n" +
+                  dataSourceCountUnder10k +
+                  "\n\n" +
+                  JSON.stringify(output, undefined, 4)
               );
             else
               showFmt(
                 "Origin " +
-                originid +
-                " is not involved in Connection Assignment...\n" +
-                dataSourceCountUnder10k +
-                "\n\n" +
-                JSON.stringify(output, undefined, 4)
+                  originid +
+                  " is not involved in Connection Assignment...\n" +
+                  dataSourceCountUnder10k +
+                  "\n\n" +
+                  JSON.stringify(output, undefined, 4)
               );
             console.log(output);
           });
@@ -2579,22 +2688,26 @@
       // is it a resource id / assets id?
       let isOriginId = window.location.hostname.includes("mcc.");
 
-      let oprom = isOriginId ?
-        Promise.resolve(id) :
-        cdgc_searchAsset([id]).then(
-          (hits) => hits[0]["sourceAsMap"]["core.origin"]
-        );
+      let oprom = isOriginId
+        ? Promise.resolve(id)
+        : cdgc_searchAsset([id]).then(
+            (hits) => hits[0]["sourceAsMap"]["core.origin"]
+          );
       oprom.then((originid) => {
-        let otypep = cdgc_facetQuery(true, {
-          "core.origin": [originid]
-        }, [
-          "core.classType",
-        ]);
-        let etypep = cdgc_facetQuery(false, {
-          "core.origin": [originid]
-        }, [
-          "type",
-        ]);
+        let otypep = cdgc_facetQuery(
+          true,
+          {
+            "core.origin": [originid],
+          },
+          ["core.classType"]
+        );
+        let etypep = cdgc_facetQuery(
+          false,
+          {
+            "core.origin": [originid],
+          },
+          ["type"]
+        );
         Promise.all([otypep, etypep]).then(([otypes, etypes]) => {
           otypes = otypes["core.classType"];
           etypes = etypes["type"];
@@ -2627,22 +2740,23 @@
                 ele: "div",
                 styles: {
                   display: "flex",
-                  marginLeft: "10px"
+                  marginLeft: "10px",
                 },
-                children: [{
+                children: [
+                  {
                     ele: "input",
                     iden: `inp-${typ}-${originid}`,
                     attribs: {
-                      type: "checkbox"
+                      type: "checkbox",
                     },
                     evnts: {
-                      change: (e) => (out_obj[typ] = e.target.checked)
+                      change: (e) => (out_obj[typ] = e.target.checked),
                     },
                   },
                   {
                     ele: "label",
                     attribs: {
-                      for: `inp-${typ}-${originid}`
+                      for: `inp-${typ}-${originid}`,
                     },
                     text: typ,
                   },
@@ -2650,7 +2764,8 @@
               })),
             };
           };
-          makePopup({
+          makePopup(
+            {
               ele: "div",
               styles: {
                 margin: "20px 40px",
@@ -2664,22 +2779,24 @@
                 flexDirection: "column",
               },
               evnts: {
-                click: (_) => _.stopPropagation()
+                click: (_) => _.stopPropagation(),
               },
-              children: [{
+              children: [
+                {
                   ele: "h3",
-                  text: "Lake export wizard"
+                  text: "Lake export wizard",
                 },
                 {
                   ele: "b",
-                  text: `Exporting assets from origin: ${originid}`
+                  text: `Exporting assets from origin: ${originid}`,
                 },
                 {
                   ele: "div",
                   styles: {
-                    padding: "20px 10px"
+                    padding: "20px 10px",
                   },
-                  children: [{
+                  children: [
+                    {
                       ele: "b",
                       text: "Pick the object types you want to export",
                     },
@@ -2695,11 +2812,11 @@
                       evnts: {
                         click: (_) => {
                           let os = Object.entries(e_obj_types)
-                            .filter((a) => a[1])
-                            .map((a) => a[0]),
+                              .filter((a) => a[1])
+                              .map((a) => a[0]),
                             es = Object.entries(e_edge_types)
-                            .filter((a) => a[1])
-                            .map((a) => a[0]);
+                              .filter((a) => a[1])
+                              .map((a) => a[0]);
                           cdgc_triggerExport(
                             originid,
                             os.length > 0,
@@ -2727,14 +2844,16 @@
       return {
         ".*-dqprofile.*": {
           "/profiling-ui/main/profile/.*": {
-            menuItems: [{
-              group: "Profile defn",
-              text: "Show profile defn",
-              action: () =>
-                showProfileDefn(
-                  window.location.pathname.split("/").reverse()[0]
-                ),
-            }, ],
+            menuItems: [
+              {
+                group: "Profile defn",
+                text: "Show profile defn",
+                action: () =>
+                  showProfileDefn(
+                    window.location.pathname.split("/").reverse()[0]
+                  ),
+              },
+            ],
           },
         },
       };
@@ -2797,27 +2916,29 @@
         width: "40px",
         zIndex: 10000,
       },
-      children: [{
-        ele: "div",
-        text: `<img height="40px" width="40px" src='data:image/png;base64,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'/>`,
-        styles: {
-          width: "100%",
-          height: "100%",
-          display: "flex"
-        },
-        evnts: {
-          click: function () {
-            makeMenu(makeMenuDef());
+      children: [
+        {
+          ele: "div",
+          text: `<img height="40px" width="40px" src='data:image/png;base64,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'/>`,
+          styles: {
+            width: "100%",
+            height: "100%",
+            display: "flex",
+          },
+          evnts: {
+            click: function () {
+              makeMenu(makeMenuDef());
+            },
           },
         },
-      }, ],
+      ],
     });
     document.body.appendChild(popupbtn);
     //new MoveableItem(popupbtn, 15, 15)
     apps.forEach((app) => {
       UIs = {
         ...UIs,
-        ...new app().getUiConfig()
+        ...new app().getUiConfig(),
       };
     });
   }
@@ -2871,33 +2992,37 @@
       array.reduce(
         (result, item) => (
           (result[item[key]] = result[item[key]] || []).push(item), result
-        ), {}
+        ),
+        {}
       );
     let groups = groupBy(items, "group");
     return {
       ele: "div",
       styles: {
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
       },
-      children: Object.entries(groups).flatMap(([grpName, items]) => [{
+      children: Object.entries(groups).flatMap(([grpName, items]) => [
+        {
           ele: "div",
           classList: "item-header",
-          text: grpName
+          text: grpName,
         },
         ...items.map((item) => ({
           ele: "div",
-          children: [{
-            ele: "span",
-            text: item.text,
-            styles: {
-              display: "block",
-              padding: "3px 8px"
+          children: [
+            {
+              ele: "span",
+              text: item.text,
+              styles: {
+                display: "block",
+                padding: "3px 8px",
+              },
             },
-          }, ],
+          ],
           classList: "item",
           evnts: {
-            click: item.action
+            click: item.action,
           },
         })),
       ]),
@@ -2950,7 +3075,7 @@
         steps,
         dx,
         dy,
-        theta
+        theta,
       };
     }
 
@@ -3037,7 +3162,8 @@
     function execute(txt) {
       let head = txt.split("\n")[0];
     }
-    makePopup({
+    makePopup(
+      {
         ele: "div",
         styles: {
           margin: "20px 40px",
@@ -3048,13 +3174,14 @@
           overflow: "auto",
         },
         evts: {
-          click: (_) => _.stopPropagation()
+          click: (_) => _.stopPropagation(),
         },
-        children: [{
+        children: [
+          {
             ele: "textarea",
             styles: {
-              flexGrow: 1
-            }
+              flexGrow: 1,
+            },
           },
           {
             ele: "button",
